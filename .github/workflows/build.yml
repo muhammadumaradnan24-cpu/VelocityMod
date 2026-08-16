@@ -19,10 +19,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Gradle
-        run: |
-          chmod +x gradlew || true
-          ./gradlew build --no-daemon || gradle build --no-daemon
+      - name: Build with System Gradle
+        run: gradle build --no-daemon
 
       - name: Upload Compiled JAR
         uses: actions/upload-artifact@v4
