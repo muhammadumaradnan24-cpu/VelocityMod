@@ -1,0 +1,28 @@
+name: Build Fabric Mod
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Unzip Files Directly
+        run: unzip -o Velocity.zip -d .
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with System Gradle
+        run: gradle build --no-daemon
+
+      - name: Upload Compiled JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: VelocityMod-JAR
+          path: "**/build/libs/*.jar"
+          
